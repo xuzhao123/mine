@@ -16,9 +16,17 @@
         <div class="mine">
             <ul>
                 <li v-for="d in data">
-                    <span v-for="item in d">
-                        {{item}}
-                    </span>
+                    <div v-for="item in d" @click="click(item)" @contextmenu.prevent="rightClick(item)">
+                        <span v-if="item.status===1">{{item.value}}</span>
+                        <span v-else v-bind:class="{ 
+                            'item-black': item.status===2,
+                            'item-flag': item.status===3,
+                            'item-mark': item.status===4,
+                            'item-mine': item.status===5,
+                            'item-error': item.status===6,
+                        }"></span>
+
+                    </div>
                 </li>
             </ul>
         </div>

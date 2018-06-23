@@ -141,12 +141,39 @@ table {
     border-top: 1px solid #000;
 }
 
-.mine span {
+.mine div {
     text-align: center;
-    display: inline-block;
+    float: left;
     width: 30px;
     height: 30px;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
     cursor: pointer;
+}
+
+.mine span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.mine .item-mine {
+    background: url(./images/mine.png) center center no-repeat;
+}
+
+.mine .item-black {
+    background: #CCC;
+}
+
+.mine .item-flag {
+    background: url(./images/flag.png) center center no-repeat;
+}
+
+.mine .item-mark {
+    background: url(./images/mark.png) center center no-repeat;
+}
+
+.mine .item-error {
+    background: url(./images/error.png) center center no-repeat;
 }
