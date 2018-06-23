@@ -1,18 +1,26 @@
 
-var mine = new Mine(50, 50, 0);
+var mine = new Mine(20, 20, 10);
 
 var app = new Vue({
   el: '#app',
   data: {
-    data: mine.data
+    mine: mine
   },
   methods: {
+    start() {
+      mine.start();
+    },
+
     click(data) {
       var result = mine.getGameStatus();
       if (result === 0) {
         mine.click(data);
         this.checkResult();
       }
+    },
+
+    dblclick(data) {
+      mine.dbclick(data);
     },
 
     rightClick(data) {

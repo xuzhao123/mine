@@ -15,8 +15,8 @@
     <div id="app">
         <div class="mine">
             <ul>
-                <li v-for="d in data">
-                    <div v-for="item in d" @click="click(item)" @contextmenu.prevent="rightClick(item)">
+                <li v-for="d in mine.data">
+                    <div v-for="item in d" @click="click(item)" @dblclick.prevent="dblclick(item)" @contextmenu.prevent="rightClick(item)">
                         <span v-if="item.status===1">{{item.value}}</span>
                         <span v-else v-bind:class="{ 
                             'item-black': item.status===2,
@@ -30,6 +30,7 @@
                 </li>
             </ul>
         </div>
+        <button @click="start()">start</button>
     </div>
 
     <script src="./mine.js"></script>

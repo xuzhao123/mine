@@ -157,13 +157,13 @@ class Mine {
             });
         }
 
-        // 输了则纠正错误的标识，并且显示所有的地雷
+        // 输了则纠正错误的标识，保持正确的标识并且显示所有的地雷
         else if (this.result === false) {
             this.data.forEach(d => {
                 d.forEach(item => {
-                    if (item.value === Mine.Space.mine) {
+                    if (item.value === Mine.Space.mine && item.status !== Mine.State.flag) {
                         item.status = Mine.State.mine;
-                    } else if (item.status === Mine.State.flag) {
+                    } else if (item.value !== Mine.Space.mine && item.status === Mine.State.flag) {
                         item.status = Mine.State.error;
                     }
                 })
@@ -188,6 +188,7 @@ class Mine {
                     spaces.filter(space => {
                         return space.status === Mine.State.blank;
                     }).forEach(space => {
+                        // 50*50 0个雷会递归溢出 todo
                         clickBlank(space);
                     });
                 } else {
@@ -228,6 +229,43 @@ class Mine {
         }
 
         this.checkGame();
+    }
+
+    dbclick(data) {
+        let self = this;
+
+        function dbclick() {
+            let spaces = getEnvironment(self.data, data.x, data.y);
+            let isEvnSave = spaces.every(space => {
+                if (space.value === Mine.Space.mine && space.status !== Mine.State.flag) {
+                    return false;
+                }
+                return true;
+            });
+            if (isEvnSave) {
+                spaces.forEach(space => {
+                    if (space.status == Mine.State.blank) {
+                        space.status = Mine.State.click;
+                    }
+                });
+            }
+        }
+
+        switch (data.status) {
+            case Mine.State.blank:
+                break;
+            case Mine.State.click:
+                dbclick();
+                break;
+            case Mine.State.back:
+                break;
+            case Mine.State.flag:
+                break;
+            case Mine.State.mark:
+                break;
+            case Mine.State.mine:
+                break;
+        }
     }
 
     rightClick(data) {
